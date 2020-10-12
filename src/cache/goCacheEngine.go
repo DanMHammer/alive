@@ -3,7 +3,6 @@ package cache
 import (
 	"time"
 
-	"github.com/DanMHammer/statusmonitor/status"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -14,7 +13,7 @@ type GoCacheEngine struct {
 
 // Connect - Create Go Cache
 func (gc *GoCacheEngine) Connect(minutesToExpire int, minutesToDelete int) (err error) {
-	gc.Cache = cache.New(minutesToExpire*time.Minute, minutesToDelete*time.Minute)
+	gc.Cache = cache.New(time.Duration(minutesToExpire)*time.Minute, time.Duration(minutesToDelete)*time.Minute)
 	return
 }
 
@@ -28,18 +27,16 @@ func NewGoCacheEngine(minutesToExpire int, minutesToDelete int) (output *GoCache
 	return &engine, nil
 }
 
-// SaveStatus - Save Result to Cache
-func (gc *GoCacheEngine) SaveStatus(status status.Status) {
-	id := status.Id
-	ts := str(status.Timestamp)
-	gc.Cache.Set(id, ts, cache.DefaultExpiration)
+// Save - Save to Cache
+func (gc *GoCacheEngine) Save(id string, item string) {
+	gc.Cache.Set(id, item, cache.DefaultExpiration)
 }
 
-// GetStatus - Get Result from Cache
-func (gc *GoCacheEngine) GetStatus(id string) status.Status {
+// Get - Get from Cache
+func (gc *GoCacheEngine) Get(id string) string {
 	if x, found := gc.Cache.Get(id); found {
-		status := x.(Status)
-		return status
+		item := x.(string)
+		return item
 	}
-	return Status{}
+	return ""
 }

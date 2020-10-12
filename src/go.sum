@@ -1,6 +1,7 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/DanMHammer/status v0.0.0-20201012190455-d4b4c0f0a63c h1:JemP5t15n8IvINOQO+NfWVxpQW9Y8Wuv3R1mmaHDnlw=
+github.com/DanMHammer/status v0.0.0-20201012210621-97ea81e5e52a h1:r7m2EY8UgOUEJr6nsp7beswqQwH6hzE/VqRzCR+dfUc=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
