@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package status;
+
+message Status {
+    int32 id = 1;
+    google.protobuf.Timestamp timestamp = 2;
+}
+
+message Message {
+    string body = 1;
+}
+
+service StatusService {
+    rpc CheckIn(Status) returns (Message) {}
+}
