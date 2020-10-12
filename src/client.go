@@ -8,7 +8,7 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/DanMHammer/status/status"
+	"github.com/DanMHammer/statusmonitor/proto"
 	"github.com/golang/protobuf/ptypes"
 	"google.golang.org/grpc"
 )
@@ -30,14 +30,14 @@ func main() {
 
 	defer conn.Close()
 
-	c := status.NewStatusServiceClient(conn)
+	c := proto.NewStatusServiceClient(conn)
 
 	for tick := range time.Tick(10 * time.Second) {
 
 		fmt.Println(tick)
 		ts := ptypes.TimestampNow()
 
-		message := status.Status{
+		message := proto.Status{
 			Timestamp: ts,
 			Id:        int32(*idPtr),
 		}
