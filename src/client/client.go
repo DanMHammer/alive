@@ -22,15 +22,15 @@ func main() {
 
 	var conn *grpc.ClientConn
 
-	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
+	conn, err := grpc.Dial(":9000", grpc.WithInsecure(), grpc.WithTimeout(10*time.Minute))
 
 	if err != nil {
 		log.Fatalf("could not connect: %s", err)
 	}
 
-	defer conn.Close()
-
 	c := proto.NewStatusServiceClient(conn)
+
+	started := ptypes.TimestampNow()
 
 	for tick := range time.Tick(10 * time.Second) {
 
@@ -38,8 +38,9 @@ func main() {
 		ts := ptypes.TimestampNow()
 
 		message := proto.Status{
-			Timestamp: ts,
-			Id:        int32(*idPtr),
+			Latest:  ts,
+			Started: started,
+			Id:      int32(*idPtr),
 		}
 
 		response, err := c.CheckIn(context.Background(), &message)
@@ -50,4 +51,6 @@ func main() {
 
 		log.Printf("Response from Server: %s", response.Body)
 	}
+
+	defer conn.Close()
 }

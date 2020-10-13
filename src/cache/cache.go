@@ -3,14 +3,32 @@ package cache
 import (
 	"context"
 	"errors"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // CacheEngine interface
 type CacheEngine interface {
-	// Saves the result to cache
-	Save(id string, timestamp string)
-	// Retrieves result from cache
-	Get(id string) (timestamp string)
+	// Saves the item to cache
+	Save(id string, started *timestamppb.Timestamp, lastseen *timestamppb.Timestamp)
+	// Retrieves item from cache
+	Get(id string) Result
+	// Retrieve all items from cache
+	GetAll() []Result
+}
+
+type Time struct {
+	Seconds string
+	Nanos   string
+	Time    string
+}
+
+// Result - struct to hold items in cache
+type Result struct {
+	Id       string
+	Started  Time
+	Lastseen Time
+	Alive string
 }
 
 var ctx = context.Background()

@@ -6,7 +6,8 @@ package proto;
 
 message Status {
     int32 id = 1;
-    google.protobuf.Timestamp timestamp = 2;
+    google.protobuf.Timestamp latest = 2;
+    google.protobuf.Timestamp started = 3;
 }
 
 message Message {
